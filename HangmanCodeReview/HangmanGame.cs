@@ -23,10 +23,14 @@ namespace HangmanCodeReview
         {
             Console.WriteLine("Välkommen till Hänga gubbe!");
             Console.WriteLine("Du har totalt 6 liv. Gissa bokstäver för att hitta rätt ord.");
+            Console.WriteLine("Tryck på valfri tangent för att spela");
+            Console.ReadLine();
 
             while (gameStatus.Lives > 0 && !gameStatus.IsWordGuessed())
             {
+                Console.Clear();
                 DisplayGameStatus();
+                DisplayHangman(gameStatus.Lives);
                 char guess = GetGuess();
 
                 if (gameStatus.GuessedLetters.Contains(guess))
@@ -79,6 +83,20 @@ namespace HangmanCodeReview
             {
                 Console.WriteLine($"\nTyvärr, du har inga liv kvar. Ordet var: {gameStatus.WordToGuess}");
             }
+        }
+
+        private void DisplayHangman(int lives)
+        {
+            string[] stages = {
+            "_______\n|    o\n|   -|-\n|   / \\\n|\n-------",
+            "_______\n|    o\n|   -|-\n|   /\n|\n-------",
+            "_______\n|    o\n|   -|-\n|\n|\n-------",
+            "_______\n|    o\n|   -|\n|\n|\n-------",
+            "_______\n|    o\n|    |\n|\n|\n-------",
+            "_______\n|    o\n|\n|\n|______",
+            "_______\n|\n|\n|\n|______"
+        };
+            Console.WriteLine(stages[6 - lives]);
         }
     }
 }
